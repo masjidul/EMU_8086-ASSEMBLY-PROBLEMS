@@ -1,0 +1,36 @@
+INCLUDE 'EMU8086.INC'
+.MODEL SMALL
+.STACK 100H
+.DATA
+
+.CODE
+
+MAIN PROC
+    MOV BH, 1111B
+    AND BH, 0100B ; XOR, OR IS ALSO AVAILABLE 
+    ;IF WE  DO XOR BH, BH THEN VALUE WILL BE CLEAR
+    
+    ADD BH, 48 
+    
+    MOV AH, 2
+    MOV DL, BH
+    INT 21H
+    
+    XOR BH, BH
+    
+    MOV AH, 2
+    MOV DL, BH
+    INT 21H
+    
+    PRINTN
+    MOV BH, 111110B
+    NOT BH
+    
+    MOV AH, 2
+    MOV DL, BH
+    INT 21H
+    
+    MOV AH, 4CH
+    INT 21H
+    MAIN ENDP
+END MAIN

@@ -1,0 +1,19 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+
+NUM1 DB 'd' ; d=100 
+NUM2 DB ? ;MEANS UNKNOWN
+CHAR DB '#'
+CHAR2 DB ?  
+
+MAIN PROC
+    MOV AX , @DATA    ;ACCESSED ALL DATA
+    MOV DS, AX        ;MOVED AX TO DS
+    
+    MOV AX,4CH
+    INT 21H
+    
+    MAIN ENDP
+END MAIN
+    

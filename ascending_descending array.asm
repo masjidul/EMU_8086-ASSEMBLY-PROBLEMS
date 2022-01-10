@@ -1,0 +1,93 @@
+INCLUDE 'EMU8086.INC'
+DATA SEGMENT
+ARR DB 15,12,18,13,19,16,14,20,11,17
+LEN DW $-ARR
+DATA ENDS
+CODE SEGMENT
+    
+ASSUME DS:DATA CS:CODE
+START:
+
+MOV AX,DATA
+MOV DS,AX
+
+CALL DECENDING
+PRINTN
+CALL ASSENDING
+
+DECENDING PROC 
+
+    MOV CX,LEN-1
+    
+    OUTER:
+    LEA SI,ARR
+    MOV BX,0
+        INNER:
+    INC BX
+    MOV AL,ARR[SI]
+    INC SI
+    CMP AL,ARR[SI]
+        JB SKIP
+    XCHG AL,ARR[SI]
+    MOV ARR[SI-1],AL
+        SKIP:
+    CMP BX,CX
+    JL  INNER
+    LOOP OUTER 
+     
+    
+    RET 
+DECENDING ENDP
+
+ASSENDING PROC
+        MOV CX,LEN-1
+        
+        OUTER2:
+        LEA SI,ARR
+        MOV BX,0
+        INNER2: 
+        INC BX
+        MOV AL,ARR[SI]
+        INC SI
+        CMP ARR[SI],AL
+        JB SKIP2
+        XCHG AL,ARR[SI]
+        MOV ARR[SI-1],AL
+        SKIP2:
+        CMP BX,CX
+        JL  INNER2
+        LOOP OUTER2 
+        
+      
+        
+        RET
+ASSENDING ENDP
+
+    HEX2DEC PROC NEAR
+        
+    MOV CX,0
+    MOV BX,10
+    
+   LOOP1: MOV DX,0
+    DIV BX
+    ADD DL,30H
+    PUSH DX
+    INC CX
+    CMP AX,9
+    JG LOOP1
+    ADD AL,30H
+    MOV [SI],AL
+    
+   LOOP2: POP AX
+    INC SI
+    MOV [SI],AL
+    LOOP LOOP2
+   RET
+HEX2DEC ENDP
+
+   
+MOV AH,4CH
+INT 21H
+CODE ENDS
+END START 
+

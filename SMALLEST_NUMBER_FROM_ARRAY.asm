@@ -1,0 +1,54 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+ARRAY DB 66, 4, 97, 34, 47, 96, 47, 63, 78, 34
+SMALLEST DB ?
+DATA ENDS
+
+CODE SEGMENT
+ASSUME DS:DATA,CS:CODE
+
+START:
+    
+    MOV AX, DATA
+    MOV DS, AX
+    
+    MOV BX, 0
+    
+    MOV AL, ARRAY[BX]
+    
+    MOV SMALLEST, AL 
+    
+    
+    COMPARE:
+    
+    INC BX
+    
+    CMP BX, 10
+    
+    JE EXIT
+    
+    MOV AL, ARRAY[BX]
+    
+    CMP AL, SMALLEST
+    
+    JL UPDATE_SMALLEST
+    
+    JMP COMPARE
+    
+    UPDATE_SMALLEST:
+    
+    MOV SMALLEST, AL
+    MOV AH, 2
+    MOV DL, AL
+    ADD DL, 48
+    INT 21H
+    
+    JMP COMPARE
+    
+    EXIT:
+
+MOV AH,4CH
+INT 21H
+CODE ENDS
+END START

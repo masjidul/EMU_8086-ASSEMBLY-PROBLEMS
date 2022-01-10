@@ -1,0 +1,41 @@
+.MODEL SMALL
+.STACK 500H
+.DATA
+   MSG DB "ENTER A NUMBER: $"
+   MSG2 DB "NUMBER IS: $"
+.CODE
+
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX ;ACCESS DATA
+ 
+    
+    MOV AH, 9
+    LEA DX, MSG
+    INT 21H
+    
+    MOV AH , 1  ;INPUT IS STORED IN AL REGISTER
+    INT 21H
+    
+    ;FOR NEWLINE 
+    MOV AH, 2
+    MOV DL , 0AH
+    INT 21H
+    MOV DL, 0DH
+    INT 21H
+    
+    MOV AH, 9
+    LEA DX, MSG2
+    INT 21H 
+   
+    MOV AH, 2
+    MOV DL, AL
+    INT 21H
+    
+     
+    
+    MOV AH, 4CH
+    INT 21H
+    
+    MAIN ENDP
+END MAIN

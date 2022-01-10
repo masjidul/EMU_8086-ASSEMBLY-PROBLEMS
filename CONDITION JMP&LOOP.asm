@@ -1,0 +1,31 @@
+INCLUDE 'EMU8086.INC'
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+
+.CODE
+
+MAIN PROC
+    INC BX; BX=BX+1 ; B++
+    DEC BX; BX=BX-1 ; B--
+    
+    MOV CX , 5 ; GIVEN ; N=5
+    MOV BX ,0 ; INITIALIZE ; INT I =0;
+    
+    ;FOR LOOP
+    START:
+    CMP BX, CX  ;CONDITION CHECK I < N OR I>N OR I == N
+    JE LAST ; IF I = N THEN GOTO LAST
+    PRINTN "HALLO"
+    INC BX ; ELSE I++
+    JNE START ; IF I!=N THEN BACK TO START
+    
+    LAST:
+    PRINTN "ENDED"
+    
+    MOV AH, 4CH
+    INT 21H
+    MAIN ENDP
+END MAIN
+    

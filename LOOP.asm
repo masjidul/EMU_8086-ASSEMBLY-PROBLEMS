@@ -1,0 +1,23 @@
+INCLUDE 'EMU8086.INC'
+.MODEL SMALL
+.STACK 100H
+.DATA
+
+.CODE
+
+MAIN PROC
+    ;FOR(INT I=N;I>=0;I--)
+    
+    MOV CX, 5
+    TOP:
+    ;STATS  
+    PRINTN "lOOP IS RUNNING"
+    LOOP TOP
+    
+    PRINTN 'FINISHED'
+    
+    MOV AX, 4CH
+    INT 21H
+    
+    MAIN ENDP
+END MAIN
